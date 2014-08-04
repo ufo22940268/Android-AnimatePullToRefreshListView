@@ -815,34 +815,14 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout
 	 * {@link State#RESET} state.
 	 */
 	protected void onReset() {
-		mIsBeingDragged = false;
-		mLayoutVisibilityChangesEnabled = true;
+        mIsBeingDragged = false;
+        mLayoutVisibilityChangesEnabled = true;
 
-		// Always reset both layouts, just in case...
-		mHeaderLayout.reset();
-		mFooterLayout.reset();
+        // Always reset both layouts, just in case...
+        mHeaderLayout.reset();
+        mFooterLayout.reset();
 
-		// Show a finish sign before scroll to the initial position.
-
-		//Don't know why the header will keep invisible when scroll happens the first time.
-		mHeaderLayout.setVisibility(View.VISIBLE);
-		mHeaderLayout.mTickImage.setVisibility(View.VISIBLE);
-		mHeaderLayout.mHeaderImage.setVisibility(View.INVISIBLE);
-		AlphaAnimation aa = new AlphaAnimation(0.0f, 1.0f);
-		aa.setDuration(100);
-		mHeaderLayout.mTickImage.startAnimation(aa);
-        int height = mHeaderLayout.findViewById(R.id.fl_inner).getHeight();
-        if (Math.abs(getScrollY()) == height) {
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    scrollToInitial();
-                }
-            }, 1000);
-        } else {
-            scrollToInitial();
-        }
+        smoothScrollTo(0);
     }
 
     private void scrollToInitial() {
