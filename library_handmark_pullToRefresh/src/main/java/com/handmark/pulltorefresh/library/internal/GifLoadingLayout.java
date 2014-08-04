@@ -27,13 +27,13 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Orientation;
 import com.handmark.pulltorefresh.library.R;
 
-public class RotateLoadingLayout extends LoadingLayout {
+import pl.droidsonroids.gif.GifDrawable;
+
+public class GifLoadingLayout extends LoadingLayout {
 
 	static final int ROTATION_ANIMATION_DURATION = 1200;
 
 	private final Matrix mHeaderImageMatrix;
-
-	private float mRotationPivotX, mRotationPivotY;
 
     private final boolean mRotateDrawableWhilePulling;
     private GifAnimation mGifAnimation;
@@ -44,7 +44,7 @@ public class RotateLoadingLayout extends LoadingLayout {
             R.drawable.dropdown_loading_02,
     };
 
-    public RotateLoadingLayout(Context context, Mode mode, Orientation scrollDirection, TypedArray attrs) {
+    public GifLoadingLayout(Context context, Mode mode, Orientation scrollDirection, TypedArray attrs) {
 		super(context, mode, scrollDirection, attrs);
 
 		mRotateDrawableWhilePulling = attrs.getBoolean(R.styleable.PullToRefresh_ptrRotateDrawableWhilePulling, true);
@@ -52,14 +52,11 @@ public class RotateLoadingLayout extends LoadingLayout {
 		mHeaderImage.setScaleType(ScaleType.MATRIX);
 		mHeaderImageMatrix = new Matrix();
 		mHeaderImage.setImageMatrix(mHeaderImageMatrix);
+//        new GifDrawable()
+//        mHeaderImage.setImageResource();
 	}
 
 	public void onLoadingDrawableSet(Drawable imageDrawable) {
-        System.out.println("RotateLoadingLayout.onLoadingDrawableSet");
-        if (null != imageDrawable) {
-			mRotationPivotX = Math.round(imageDrawable.getIntrinsicWidth() / 2f);
-			mRotationPivotY = Math.round(imageDrawable.getIntrinsicHeight() / 2f);
-		}
 	}
 
     int mPrevIndex = -1;
@@ -96,9 +93,7 @@ public class RotateLoadingLayout extends LoadingLayout {
 
     @Override
 	protected void refreshingImpl() {
-        if (mGifAnimation == null) {
-            mGifAnimation = new GifAnimation(mHeaderImage, mGifRes);
-        }
+        mGifAnimation = new GifAnimation(mHeaderImage, mGifRes);
         mGifAnimation.start();
     }
 

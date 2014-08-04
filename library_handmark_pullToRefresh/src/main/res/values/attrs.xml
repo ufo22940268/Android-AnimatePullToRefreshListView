@@ -53,6 +53,7 @@
         <attr name="ptrAnimationStyle">
             <flag name="rotate" value="0x0" />
             <flag name="flip" value="0x1" />
+            <flag name="gif" value="0x10" />
         </attr>
 
         <!-- Whether the user can scroll while the View is Refreshing -->

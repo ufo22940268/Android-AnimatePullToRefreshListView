@@ -11,5 +11,6 @@
         ptr:ptrMode="both"
         android:divider="@null"
         />
+    <!--ptr:ptrAnimationStyle="gif"-->
 
 </RelativeLayout>

@@ -13,7 +13,6 @@ public class GifAnimation implements Handler.Callback {
     private final ImageView mHeaderImage;
     private final int[] mGifReses;
     private final Handler mHandler;
-    private long mStartTime;
     private int mIndex;
     private boolean mStart;
 
@@ -25,12 +24,13 @@ public class GifAnimation implements Handler.Callback {
     }
 
     public void start() {
-        mStart = true;
-        mStartTime = System.currentTimeMillis();
-        mIndex = 0;
+        if (!mStart) {
+            mStart = true;
+            mIndex = 0;
 
-        nextImage();
-        mHandler.sendEmptyMessageDelayed(0, DELAY_MILLIS);
+            nextImage();
+            mHandler.sendEmptyMessageDelayed(0, DELAY_MILLIS);
+        }
     }
 
     private void nextImage() {
