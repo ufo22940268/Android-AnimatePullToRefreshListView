@@ -17,6 +17,8 @@ package com.handmark.pulltorefresh.library.internal;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView.ScaleType;
@@ -79,12 +81,20 @@ public class RotateLoadingLayout extends LoadingLayout {
             }
             int res = getResources().getIdentifier(String.format("dropdown_anim_%02d",
                     index), "drawable", getContext().getPackageName());
+//            Bitmap scaledBitmap = getScaledBitmap(res, index);
+//            mHeaderImage.setImageBitmap(scaledBitmap);
             mHeaderImage.setImageResource(res);
             mPrevIndex = index;
         }
     }
 
-	@Override
+    private Bitmap getScaledBitmap(int res, int index) {
+        float p = ((float) index/10*7 + 3)/10;
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), res);
+        return Bitmap.createScaledBitmap(bitmap, (int)(mHeaderImage.getWidth()*p), (int)(mHeaderImage.getHeight()*p), false);
+    }
+
+    @Override
 	protected void refreshingImpl() {
         mGifAnimation = new GifAnimation(mHeaderImage, mGifRes);
         mGifAnimation.start();
