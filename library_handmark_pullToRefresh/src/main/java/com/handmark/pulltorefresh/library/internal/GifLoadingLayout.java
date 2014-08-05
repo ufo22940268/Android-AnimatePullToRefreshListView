@@ -69,15 +69,17 @@ public class GifLoadingLayout extends LoadingLayout {
 
     int mPrevIndex = -1;
 	protected void onPullImpl(float scaleOfLayout) {
-//        if (mPrevIndex == -1) {
-//            pauseGif();
-//            mPrevIndex = 0;
-//        }
+        if (mPrevIndex == -1 && scaleOfLayout > 0.3) {
+            mGifDrawable.pause();
+            mPrevIndex = 0;
+        }
     }
 
     @Override
 	protected void refreshingImpl() {
-        mGifDrawable.start();
+        if (!mGifDrawable.isPlaying()) {
+            mGifDrawable.start();
+        }
     }
 
 	@Override
