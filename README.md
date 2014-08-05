@@ -23,7 +23,7 @@
 1. 把gif文件放到asset文件夹下.
 2. 配置xml文件，加入gif文件名.
 
-'''xml
+```xml
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pull_to_refresh_listview"
         android:layout_height="fill_parent"
@@ -33,7 +33,7 @@
         ptr:ptrMode="pullFromStart"
         ptr:ptrGifAsset="squirrel.gif"
         />
-'''
+```
  
 #TODO
     
