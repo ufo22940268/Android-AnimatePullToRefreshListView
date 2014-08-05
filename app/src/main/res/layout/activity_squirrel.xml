@@ -8,9 +8,10 @@
         android:id="@+id/pull_to_refresh_listview"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        ptr:ptrMode="pullFromStart"
         android:divider="@null"
         ptr:ptrAnimationStyle="gif"
+        ptr:ptrMode="pullFromStart"
+        ptr:ptrGifAsset="squirrel.gif"
         />
 
 </RelativeLayout>

@@ -34,6 +34,7 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.bettycc.animatepulltorefresh.library.R;
 import com.handmark.pulltorefresh.library.internal.FlipLoadingLayout;
 import com.handmark.pulltorefresh.library.internal.GifLoadingLayout;
 import com.handmark.pulltorefresh.library.internal.LoadingLayout;
