@@ -1,6 +1,8 @@
 package bettycc.com.animatepulltorefresh;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +15,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 public class MyActivity extends Activity {
 
+    public static final int TYPE_EATING = 0;
+    public static final int TYPE_SQUIRRIEL = 1;
+
     private PullToRefreshListView mRefreshListView;
     private ListView mListView;
     private String[] mDemoStrs = new String[]{
@@ -24,14 +29,18 @@ public class MyActivity extends Activity {
             "动画",
             "了",
     };
+    private int mType;
+    private ResourceChooser mRc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+        mType = getIntent().getIntExtra("type", TYPE_EATING);
+        mRc = new ResourceChooser(this, mType);
+        setContentView(mRc.getMainLayout());
         mRefreshListView = (PullToRefreshListView) findViewById(R.id.pull_to_refresh_listview);
         mListView = mRefreshListView.getRefreshableView();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.item, mDemoStrs);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, mRc.getItemLayout(), mDemoStrs);
         mListView.setAdapter(adapter);
         mRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
@@ -79,5 +88,47 @@ public class MyActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private static class ResourceChooser {
+        private final Resources mRes;
+        private Context mContext;
+        private int mType;
+
+        public ResourceChooser(Context context, int type) {
+            mContext = context;
+            mType = type;
+            mRes = mContext.getResources();
+        }
+
+        private int getMainLayout() {
+            int layout;
+            switch (mType) {
+                case TYPE_EATING:
+                default:
+                    layout = R.layout.activity_eating;
+                    break;
+
+                case TYPE_SQUIRRIEL:
+                    layout = R.layout.activity_squirrel;
+                    break;
+            }
+            return layout;
+        }
+
+        private int getItemLayout() {
+            int layout;
+            switch (mType) {
+                case TYPE_EATING:
+                default:
+                    layout = R.layout.eating_item;
+                    break;
+
+                case TYPE_SQUIRRIEL:
+                    layout = R.layout.squirrel_item;
+                    break;
+            }
+            return layout;
+        }
     }
 }

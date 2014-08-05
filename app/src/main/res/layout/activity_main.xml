@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="64dip"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:text="Eating"
+        android:gravity="center_vertical"
+        android:textColor="#fff"
+        android:background="@color/my_color"
+        android:padding="8dip"
+        android:onClick="onEating"
+        android:clickable="true"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="64dip"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:text="Squrriel"
+        android:gravity="center_vertical"
+        android:textColor="#fff"
+        android:background="@color/squirrel_color"
+        android:padding="8dip"
+        android:onClick="onSqurriel"
+        android:clickable="true"
+        />
+
+</LinearLayout>

@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         ptr:ptrMode="both"
         android:divider="@null"
+        ptr:ptrAnimationStyle="gif"
         />
-    <!--ptr:ptrAnimationStyle="gif"-->
 
 </RelativeLayout>

@@ -40,6 +40,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Orientation;
 import com.handmark.pulltorefresh.library.R;
 
+import pl.droidsonroids.gif.GifImageView;
+
 @SuppressLint("ViewConstructor")
 public abstract class LoadingLayout extends FrameLayout implements ILoadingLayout {
 
@@ -49,7 +51,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 
 	private FrameLayout mInnerLayout;
 
-	public final ImageView mHeaderImage;
+	public final GifImageView mHeaderImage;
 	public final ImageView mTickImage;
 	protected final View mHeaderProgress;
 
@@ -84,7 +86,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 		mHeaderText = (TextView) mInnerLayout.findViewById(R.id.pull_to_refresh_text);
 		mHeaderProgress = mInnerLayout.findViewById(R.id.pull_to_refresh_progress);
 		mSubHeaderText = (TextView) mInnerLayout.findViewById(R.id.pull_to_refresh_sub_text);
-		mHeaderImage = (ImageView) mInnerLayout.findViewById(R.id.pull_to_refresh_image);
+		mHeaderImage = (GifImageView) mInnerLayout.findViewById(R.id.pull_to_refresh_image);
 		mTickImage = (ImageView) mInnerLayout.findViewById(R.id.pull_to_refresh_tick);
 
 		FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mInnerLayout.getLayoutParams();

@@ -27,6 +27,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Orientation;
 import com.handmark.pulltorefresh.library.R;
 
+import java.io.IOException;
+
 import pl.droidsonroids.gif.GifDrawable;
 
 public class GifLoadingLayout extends LoadingLayout {
@@ -44,6 +46,8 @@ public class GifLoadingLayout extends LoadingLayout {
             R.drawable.dropdown_loading_02,
     };
 
+    private GifDrawable mGifDrawable;
+
     public GifLoadingLayout(Context context, Mode mode, Orientation scrollDirection, TypedArray attrs) {
 		super(context, mode, scrollDirection, attrs);
 
@@ -52,8 +56,12 @@ public class GifLoadingLayout extends LoadingLayout {
 		mHeaderImage.setScaleType(ScaleType.MATRIX);
 		mHeaderImageMatrix = new Matrix();
 		mHeaderImage.setImageMatrix(mHeaderImageMatrix);
-//        new GifDrawable()
-//        mHeaderImage.setImageResource();
+        try {
+            mGifDrawable = new GifDrawable(context.getAssets(), "squirrel.gif");
+            mHeaderImage.setImageDrawable(mGifDrawable);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 
 	public void onLoadingDrawableSet(Drawable imageDrawable) {
@@ -61,51 +69,29 @@ public class GifLoadingLayout extends LoadingLayout {
 
     int mPrevIndex = -1;
 	protected void onPullImpl(float scaleOfLayout) {
-		float angle;
-		if (mRotateDrawableWhilePulling) {
-			angle = scaleOfLayout * 90f;
-		} else {
-			angle = Math.max(0f, Math.min(180f, scaleOfLayout * 360f - 180f));
-		}
-
-        float max = 1.7f;
-        int index = (int) (scaleOfLayout / 1f * 10);
-        if (index == mPrevIndex) {
-            return;
-        } else {
-            if (index > 10) {
-                index = 10;
-            }
-            int res = getResources().getIdentifier(String.format("dropdown_anim_%02d",
-                    index), "drawable", getContext().getPackageName());
-//            Bitmap scaledBitmap = getScaledBitmap(res, index);
-//            mHeaderImage.setImageBitmap(scaledBitmap);
-            mHeaderImage.setImageResource(res);
-            mPrevIndex = index;
-        }
-    }
-
-    private Bitmap getScaledBitmap(int res, int index) {
-        float p = ((float) index/10*7 + 3)/10;
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), res);
-        return Bitmap.createScaledBitmap(bitmap, (int)(mHeaderImage.getWidth()*p), (int)(mHeaderImage.getHeight()*p), false);
+//        if (mPrevIndex == -1) {
+//            pauseGif();
+//            mPrevIndex = 0;
+//        }
     }
 
     @Override
 	protected void refreshingImpl() {
-        mGifAnimation = new GifAnimation(mHeaderImage, mGifRes);
-        mGifAnimation.start();
+        mGifDrawable.start();
     }
 
 	@Override
 	protected void resetImpl() {
-        mHeaderImage.clearAnimation();
-        if (mGifAnimation != null) {
-            mGifAnimation.stop();
-        }
-	}
+        pauseGif();
+    }
 
-	@Override
+    private void pauseGif() {
+        if (mGifDrawable != null && mGifDrawable.isPlaying()) {
+            mGifDrawable.pause();
+        }
+    }
+
+    @Override
 	protected void pullToRefreshImpl() {
 		// NO-OP
 	}
