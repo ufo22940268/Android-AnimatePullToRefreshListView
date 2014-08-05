@@ -2,7 +2,7 @@
 
 这是一个各种下拉刷新动画的合集.项目是基于[chrisbanes的PullToRefresh](https://github.com/chrisbanes/Android-PullToRefresh)完成的。
 
-#Eating
+#吃包子动画
 
 一个变拉边吃的listview, 动画师由多张图片切换完成的，模仿“大众点评”
  
